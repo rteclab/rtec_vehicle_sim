@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!--robot name="virtual_robot" xmlns:xacro="http://www.ros.org/wiki/xacro"-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="car">
+
+  <!-- Global namespace -->
+  <xacro:arg name="robot_name" default="rtec-vehicle" />
+  
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+
+  <!-- Add chassis and it's inertia link -->
+  <!--link name="base_footprint"/-->
+
+  <!--link name="base_link"/-->
+
+  <link name="base_link">
+    <visual>
+      <!--origin xyz="0.46 -0.135 -0.180" rpy="1.57 0 3.14" /-->
+      <origin xyz="0.16 0 0.07" rpy="1.57 0 3.14" />
+      <geometry>
+        <box size="0.4 0.076 0.197" />
+      </geometry>
+      <material name="red" />
+    </visual>
+  </link>
+  
+  <link name="left_rear_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.045" radius="0.05" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <link name="right_rear_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.045" radius="0.05" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <link name="left_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.045" radius="0.05" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <link name="left_steering_hinge">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.01" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+  </link>
+
+  <link name="right_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.045" radius="0.05" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <link name="right_steering_hinge">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.01" />
+      </geometry>
+      <material name="grey" />
+    </visual>
+  </link>
+
+  <link name="laser">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.0701"/>
+        <material name="blue" />
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="camera">
+    <visual>
+      <origin xyz="-0.02 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.033 0.175 0.030"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <!--joint name="base_footprint_link_joint" type="fixed">    
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint-->
+
+  <!--joint name="base_link_joint" type="fixed">    
+    <parent link="base_link" />
+    <child link="chassis" />
+    <origin xyz="0 0 0.05" rpy="0 0 0" />
+  </joint-->
+
+  <joint name="left_rear_wheel_joint" type="continuous">
+    <origin xyz="0 0.1 0" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="left_rear_wheel" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="100" />
+  </joint>
+
+  <joint name="right_rear_wheel_joint" type="continuous">
+    <origin xyz="0 -0.1 0" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="right_rear_wheel" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="100" />
+  </joint>
+
+  <joint name="left_front_wheel_joint" type="continuous">
+    <origin xyz="0 0 0" rpy="1.5708 0 0" />
+    <parent link="left_steering_hinge" />
+    <child link="left_front_wheel" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="100" />
+  </joint>
+
+  <joint name="left_steering_hinge_joint" type="revolute">
+    <origin xyz="0.325 0.1 0" rpy="0 1.5708 0" />
+    <parent link="base_link" />
+    <child link="left_steering_hinge" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="100" />
+  </joint>
+  
+  <joint name="right_front_wheel_joint" type="continuous">
+    <origin xyz="0 0 0" rpy="1.5708 0 0" />
+    <parent link="right_steering_hinge" />
+    <child link="right_front_wheel" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="100"/>
+  </joint>
+
+  <joint name="right_steering_hinge_joint" type="revolute">
+    <origin xyz="0.325 -0.1 0" rpy="0 1.5708 0" />
+    <parent link="base_link" />
+    <child link="right_steering_hinge" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.0" upper="1.0" effort="10" velocity="100" />
+  </joint>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="0.125 0.0 0.155" rpy="0 0 0"/>
+    <parent link="base_link" />
+    <child link="laser" />
+    <axis xyz="0 0 1" />
+  </joint>
+  
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.125 0.0 0.155" rpy="0 0 0"/>
+    <parent link="base_link" />
+    <child link="camera" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+</robot>
