@@ -2,7 +2,7 @@
 
 ### 1. Setup 
 - This repository includes a virtual simulation of an autonomous vehicle that works in [Gazebo](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html) simulator and ROS 2.
-- Before building this repository, make sure that your system has ROS 2 packages installed on it (see this [link](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#) for ROS 2 installation).
+- Before building this repository, make sure that your system has ROS 2 packages installed on it (see this [link](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#) for ROS 2 installation). It is tested in ROS 2 foxy, but it will work on other distributes of ROS 2.
 - In addition to ROS 2 packages, [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox) and [nav2](https://github.com/ros-planning/navigation2) packages installation are required.
 
 ### 2. Building a map
