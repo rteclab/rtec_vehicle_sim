@@ -45,13 +45,13 @@
         ```
         cd ~/nav2_ws/src/rtec_vehicle_sim/maps/
         ```
-    - Then, launch `online_async` SLAM of `slam_toolbox`.
+    - Then, launch `online_async` SLAM of `slam_toolbox`. Note that you need to use different params command based on ROS 2 distributions, e.g., `galactic` and `foxy`.
         ```
+        # foxy
         ros2 launch slam_toolbox online_async_launch.py params_file:=../config/mapper_params_online_async.yaml use_sim_time:=true
-        ```
-        Or, you can run the following script.
-        ```
-        ./mapping.sh
+
+        # galactic
+        ros2 launch slam_toolbox online_async_launch.py slam_params_file:=../config/mapper_params_online_async.yaml use_sim_time:=true
         ```
         This package launches `map` frame and publishes a transform from `map` to `odom`.
         * Notes: you can check the entire tf trees by running a script (`./tf_view.sh`) on `/tf_views` directory.
@@ -86,9 +86,15 @@
 2) Launch localization package.
     - We need run a localization package such as `slam_toolbox` localization, which we will use here. Or, you may use a different localization algorithm such as `amcl` localization, a part of `nav2` stack.
     - The following command uses `slam_toolbox` localization. ***Make sure that you need put a right map path `map_file_name` on `mapper_params_online_async_localisation.yaml` file.***
+    - Note that you need to use different params command based on ROS 2 distributions, e.g., `galactic` and `foxy`.
         ```
+        # foxy
         ros2 launch slam_toolbox online_async_launch.py params_file:=../config/mapper_params_online_async_localisation.yaml use_sim_time:=true
+
+        # galactic
+        ros2 launch slam_toolbox online_async_launch.py slam_params_file:=../config/mapper_params_online_async_localisation.yaml use_sim_time:=true
         ```
+
 3) Launch navigation package.
     - We run navigation package from `nav2` stack.
         ```
@@ -97,8 +103,3 @@
 
 4) Set a goal on rviz.
     - Now, it's ready to navigate your vehicle autonomously. Set a goal by using `2D Goal Pose` button on rviz. Then, the vehicle will move there.
-    
-
-
-
-
