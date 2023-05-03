@@ -66,11 +66,11 @@
     - Write a your map name on the blank of `Save Map` and `Serialize Map`, then click the button to save it.
 
 ### 3. Navigation
-- First, change the directory where you want to save a map.
+- First, change the directory where you saved a map.
     ```
     cd ~/nav2_ws/src/rtec_vehicle_sim/maps/
     ```
-    
+
 1) Launch a `map_server`.
     - `nav2_map_server` package, which is a part of `nav2` stack, will publish a `map` topic by using a map we built on the above.
         ```
