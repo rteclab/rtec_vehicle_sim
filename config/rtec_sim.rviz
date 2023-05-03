@@ -47,7 +47,7 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: /home/ubuntu/nav2_ws/src/rtec_vehicle_sim/models/vehicle_rviz.xacro
+      Description File: /home/hyunjong/nav2_ws/src/rtec_vehicle_sim/models/vehicle_rviz.xacro
       Description Source: File
       Description Topic:
         Depth: 5
